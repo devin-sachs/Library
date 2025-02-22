@@ -29,6 +29,8 @@ button {
 
 .card{
     border: 1px solid blue;
+    background-color:rgb(233, 195, 195)
+    /* background-color: salmon; */
 }
 
 ::backdrop {
@@ -70,8 +72,16 @@ button {
     margin-left: 10px;
   }
 
+  .unread,
   .read,
   .delete{
     width: 115px;
     margin: 10px;
+    background-color: rgb(59, 221, 59);
   }
+
+  .unread,
+  .delete {
+    background-color: rgba(255, 0, 255, 0.651);
+  }
+

@@ -25,12 +25,9 @@ function displayLibrary(book){
     book_details.classList.add("book-details");
     card.appendChild(book_details);
 
-    // const list = document.createElement("ul");
-
     for (let info in book){
 
         const bookProp = document.createElement("p")
-
 
         // Capitalize the property name
         firstLetter  = info.charAt(0);
@@ -56,7 +53,7 @@ function displayLibrary(book){
     
             const deleteButton = document.createElement("button");
             deleteButton.classList.add("delete")
-            deleteButtonText = document.createTextNode("Remove Book");
+            deleteButtonText = document.createTextNode("Delete");
             deleteButton.appendChild(deleteButtonText);
     
             buttonContainer.appendChild(readButton);
@@ -64,7 +61,6 @@ function displayLibrary(book){
     
             book_details.appendChild(buttonContainer);
 
-    // book_details.
 }
 
 
@@ -72,7 +68,6 @@ function displayLibrary(book){
 const dialog = document.querySelector("dialog");
 const showButton = document.querySelector(".add-book");
 const submitButton = document.querySelector("dialog button");
-const formInputs = []
 
 // "Show the dialog" button opens the dialog modally
 showButton.addEventListener("click", () => {
@@ -94,3 +89,61 @@ addBookToLibrary("Normal People", "Sally Rooney", "266");
 addBookToLibrary("Haunting Adeline", "H.D. Carlton", "565");
 addBookToLibrary("Hunting Adeline", "H.D. Carlton", "702");
 addBookToLibrary("My Best Friend's Exorcism", "Grady Hendrix", "336");
+
+
+const readButton = document.querySelectorAll(".delete");
+
+readButton.forEach((button) => {
+    button.addEventListener("click", () => {
+
+        document.querySelector(".card-container").addEventListener("click",(event) => {
+            if (!event.target.matches(".delete")) return;
+
+            const currentCard = event.target.closest(".card")
+            const bookDetails = currentCard.querySelector(".book-details");
+            const bookTitleElement = bookDetails.querySelector("p")
+
+            if (!bookTitleElement) return;
+
+            currentBookTitle = bookTitleElement.textContent.slice(7).trim();
+
+            const bookIndex = myLibrary.findIndex(book => book.title === currentBookTitle);
+
+            if (bookIndex !== -1) {
+                console.log("removing book", myLibrary[bookIndex])
+                myLibrary.splice(bookIndex,1)
+                currentCard.remove();
+                console.log("Updated library", myLibrary);
+            }
+
+        })
+
+        // currentCard = button.parentElement.parentElement.parentElement
+        //     // console.log(currentCard)
+
+        //     currentBookTitleElement = button.parentElement.previousSibling.previousSibling.previousSibling;
+        //     currentBookTitleFullString = currentBookTitleElement.textContent;
+        //     currentBookTitle = currentBookTitleFullString.slice(7).trim() ;
+
+        //     console.log(currentBookTitle);
+
+        //     const bookIndex = myLibrary.findIndex(book => book.title === currentBookTitle);
+
+        //     if (bookIndex !== -1) {
+        //         console.log("removing book", myLibrary[bookIndex])
+        //         myLibrary.splice(bookIndex,1)
+        //         currentCard.remove();
+        //         console.log("Updated library", myLibrary);
+        //     }
+
+})
+
+
+
+
+
+// readButton.addEventListener("click", () => {
+
+//     console.log(readButton.parentElement)
+
+})
