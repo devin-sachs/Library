@@ -1,3 +1,18 @@
+.heading{
+    display: flex;
+    justify-content: center;
+}
+
+.add-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-book{
+    width: 200px;
+}
+
 button {
     border-radius: 15px;
     padding: 10px;
@@ -25,4 +40,38 @@ button {
       green
     );
     opacity: 0.75;
+  }
+
+  dialog:open {
+    display: flex;
+    flex-direction: column;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+  }
+
+  label{
+    padding: 5px 0px 5px 0px;
+  }
+
+  .submit-book{
+    margin-top: 10px;
+  }
+
+  .button-card-container{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .book-details > p {
+    padding: 5px;
+    margin-left: 10px;
+  }
+
+  .read,
+  .delete{
+    width: 115px;
+    margin: 10px;
   }
