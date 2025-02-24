@@ -77,11 +77,15 @@ button {
   .delete{
     width: 115px;
     margin: 10px;
+    /* background-color: rgb(59, 221, 59); */
+  }
+
+  .read{
     background-color: rgb(59, 221, 59);
   }
 
-  .unread,
-  .delete {
+  .unread{
     background-color: rgba(255, 0, 255, 0.651);
   }
+
 

@@ -74,6 +74,7 @@ showButton.addEventListener("click", () => {
   dialog.showModal();
 });
 
+//Add Book button event listener 
 submitButton.addEventListener("click", (event) => {
     event.preventDefault();
     const formTitle = document.querySelector("#title").value;
@@ -91,59 +92,54 @@ addBookToLibrary("Hunting Adeline", "H.D. Carlton", "702");
 addBookToLibrary("My Best Friend's Exorcism", "Grady Hendrix", "336");
 
 
-const readButton = document.querySelectorAll(".delete");
+//Delete button, if pressed delete book and remove from library, matching by title. Ideally would have some kind of internal ID property if used in DB for future use. 
+cardContainer = document.querySelector(".card-container")
 
-readButton.forEach((button) => {
-    button.addEventListener("click", () => {
+cardContainer.addEventListener("click",(event) => {
 
-        document.querySelector(".card-container").addEventListener("click",(event) => {
-            if (!event.target.matches(".delete")) return;
+    const currentCard = event.target.closest(".card")
+    const bookDetails = currentCard.querySelector(".book-details");
+    const buttonContainer = bookDetails.querySelector(".button-card-container")
 
-            const currentCard = event.target.closest(".card")
-            const bookDetails = currentCard.querySelector(".book-details");
-            const bookTitleElement = bookDetails.querySelector("p")
+    const readButton = buttonContainer.querySelector(".read")
+    const unreadButton = buttonContainer.querySelector(".unread")
 
-            if (!bookTitleElement) return;
+    if (event.target.matches(".delete")) {
+        const bookTitleElement = bookDetails.querySelector("p")
 
-            currentBookTitle = bookTitleElement.textContent.slice(7).trim();
+        if (!bookTitleElement) return;
 
-            const bookIndex = myLibrary.findIndex(book => book.title === currentBookTitle);
+        currentBookTitle = bookTitleElement.textContent.slice(7).trim();
 
-            if (bookIndex !== -1) {
-                console.log("removing book", myLibrary[bookIndex])
-                myLibrary.splice(bookIndex,1)
-                currentCard.remove();
-                console.log("Updated library", myLibrary);
-            }
+        const bookIndex = myLibrary.findIndex(book => book.title === currentBookTitle);
 
-        })
+        if (bookIndex !== -1) {
+            console.log("removing book", myLibrary[bookIndex])
+            myLibrary.splice(bookIndex,1)
+            currentCard.remove();
+            console.log("Updated library", myLibrary);
+        }
+        
+    }
 
-        // currentCard = button.parentElement.parentElement.parentElement
-        //     // console.log(currentCard)
-
-        //     currentBookTitleElement = button.parentElement.previousSibling.previousSibling.previousSibling;
-        //     currentBookTitleFullString = currentBookTitleElement.textContent;
-        //     currentBookTitle = currentBookTitleFullString.slice(7).trim() ;
-
-        //     console.log(currentBookTitle);
-
-        //     const bookIndex = myLibrary.findIndex(book => book.title === currentBookTitle);
-
-        //     if (bookIndex !== -1) {
-        //         console.log("removing book", myLibrary[bookIndex])
-        //         myLibrary.splice(bookIndex,1)
-        //         currentCard.remove();
-        //         console.log("Updated library", myLibrary);
-        //     }
-
-})
+    else if(event.target.matches(".read")) {
+        // readButton.classList.toggle(".unread");
+        readButton.classList.toggle("unread");
+        readButton.textContent = "Unread"
 
 
+        //toggle button text based on current class
 
+        //TO DO future improvement: 
 
-
-// readButton.addEventListener("click", () => {
-
-//     console.log(readButton.parentElement)
+        //create Book prototype function that toggles a book instance’s read status. Need to add a class property for read or not read
+        if(readButton.classList.contains("unread")){
+            readButton.textContent = "Unread"
+        } else{
+            readButton.textContent = "Read"
+        }
+        console.log(readButton);
+    } 
+    
 
 })
