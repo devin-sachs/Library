@@ -1,13 +1,14 @@
 const myLibrary = [];
 
-function Book(title, author, pages) {
+function Book(title, author, pages, readStatus) {
   this.title = title;
   this.author = author;
   this.pages = pages;
+  this.readStatus = readStatus
 }
 
-function addBookToLibrary(title, author, pages){
-    const newBook = new Book(title,author,pages);
+function addBookToLibrary(title, author, pages,readStatus){
+    const newBook = new Book(title,author,pages, readStatus);
     myLibrary.push(newBook);
     displayLibrary(newBook);
 }
@@ -26,6 +27,9 @@ function displayLibrary(book){
     card.appendChild(book_details);
 
     for (let info in book){
+        if (info == "readStatus"){
+            break;
+        }
 
         const bookProp = document.createElement("p")
 
@@ -50,6 +54,11 @@ function displayLibrary(book){
             readButton.classList.add("read");
             readButtonText = document.createTextNode("Read")
             readButton.appendChild(readButtonText);
+
+            if (book.readStatus != true){
+                readButton.classList.toggle("unread");
+                readButton.textContent = "Unread"
+            }
     
             const deleteButton = document.createElement("button");
             deleteButton.classList.add("delete")
@@ -80,16 +89,18 @@ submitButton.addEventListener("click", (event) => {
     const formTitle = document.querySelector("#title").value;
     const formAuthor = document.querySelector("#author").value;
     const formPages = document.querySelector("#pages").value;
-    addBookToLibrary(formTitle,formAuthor,formPages);
+    const formReadStatus = document.querySelector('#readStatus').checked;
+    // console.log(formReadStatus);
+    addBookToLibrary(formTitle,formAuthor,formPages, formReadStatus);
     dialog.close();
 });
 
 
-addBookToLibrary("Fight Club", "Chuck Palahniuk", "208");
-addBookToLibrary("Normal People", "Sally Rooney", "266");
-addBookToLibrary("Haunting Adeline", "H.D. Carlton", "565");
-addBookToLibrary("Hunting Adeline", "H.D. Carlton", "702");
-addBookToLibrary("My Best Friend's Exorcism", "Grady Hendrix", "336");
+addBookToLibrary("Fight Club", "Chuck Palahniuk", "208", true);
+addBookToLibrary("Normal People", "Sally Rooney", "266", true);
+addBookToLibrary("Haunting Adeline", "H.D. Carlton", "565", true);
+addBookToLibrary("Hunting Adeline", "H.D. Carlton", "702", false);
+addBookToLibrary("My Best Friend's Exorcism", "Grady Hendrix", "336", false);
 
 
 //Delete button, if pressed delete book and remove from library, matching by title. Ideally would have some kind of internal ID property if used in DB for future use. 
@@ -102,7 +113,6 @@ cardContainer.addEventListener("click",(event) => {
     const buttonContainer = bookDetails.querySelector(".button-card-container")
 
     const readButton = buttonContainer.querySelector(".read")
-    const unreadButton = buttonContainer.querySelector(".unread")
 
     if (event.target.matches(".delete")) {
         const bookTitleElement = bookDetails.querySelector("p")
@@ -114,10 +124,10 @@ cardContainer.addEventListener("click",(event) => {
         const bookIndex = myLibrary.findIndex(book => book.title === currentBookTitle);
 
         if (bookIndex !== -1) {
-            console.log("removing book", myLibrary[bookIndex])
+            // console.log("removing book", myLibrary[bookIndex])
             myLibrary.splice(bookIndex,1)
             currentCard.remove();
-            console.log("Updated library", myLibrary);
+            // console.log("Updated library", myLibrary);
         }
         
     }
@@ -138,7 +148,7 @@ cardContainer.addEventListener("click",(event) => {
         } else{
             readButton.textContent = "Read"
         }
-        console.log(readButton);
+        // console.log(readButton);
     } 
     
 
